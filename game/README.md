@@ -1,8 +1,8 @@
-In lines computer game, a player sets balls of different colors in a line. 
+In this game a player sets balls of different colors in a line. 
 When a continuous block of three or more balls of the same color is formed, it is removed from the line. 
 In this case, all the balls are shifted to each other, and the situation may be repeated.
 
-This function lines(a) determines how many balls will be destroyed. 
+This function determines how many balls will be destroyed. 
 There can be at most one continuous block of three or more same-colored balls at the initial moment.
 
 **Input data:**
