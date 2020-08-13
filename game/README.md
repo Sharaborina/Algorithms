@@ -7,11 +7,11 @@ There can be at most one continuous block of three or more same-colored balls at
 
 **Input data:**
 
-The function takes a list aa with initial balls disposition. Balls number is less or equals 1000, balls colors can be from 0 to 9, each color has its own integer.
+The function takes a list with initial balls disposition. Balls number is less or equals 1000, balls colors can be from 0 to 9, each color has its own integer.
 
 **Output data:**
 
-The function has to return one number, the number of the balls that will be destroyed.
+The function has to return one number - the number of the balls that will be destroyed.
 
 **Example:**
 
