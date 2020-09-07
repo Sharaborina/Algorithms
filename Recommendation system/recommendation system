@@ -1,0 +1,55 @@
+import numpy as np
+from collections import defaultdict
+
+class Movie:
+    def __init__(self, similarity, film_list, user_friends):
+        assert similarity.shape[0] == similarity.shape[1], 'the similarity matrix is not square'
+        assert similarity.shape[0] == len(film_list), 'the lenght of list of movies is incorrect'
+        self.n = len(user_friends)
+        self.film_list = film_list 
+        
+        # we need to transform our dictionary where friends are keys, and movies are values to the following:
+        # a movie is a key and friends are values (so we can see how namy friends have watched a concrete film)
+        
+        self.user_friends = defaultdict(list)
+        for k,v in user_friends.items():
+            for i in v:
+                self.user_friends[i].append(k) 
+                
+        # we need to transform our adjacency matrix (similarity matrix) to an adjacency list - 
+        # we create a graph where vertices are filmes, and edges are their similarity    
+        
+        self.graph = defaultdict(list)      
+#         self.edges = set()
+        for i, v in enumerate(similarity):
+            for j, u in enumerate(v):
+                if u != 0 and i != j:
+#                     self.edges.add(frozenset([i, j]))
+                    self.graph[i].append(j)      
+       
+    def make_rating(self):
+        f = 0          # f = number of friends who have seen this movie
+        s = 0          # s = mean of number of similar movies seen for each friend
+        rating_index = 0   #   f/s
+        rating = []      #  it is a list of tuples, which stores a film id and its rating_index    
+        for film in self.graph:
+            f = len(self.user_friends[film])  
+            for neighbor in self.graph[film]:
+                s += len(self.user_friends[neighbor])
+            s /= self.n                        
+            rating_index =  f / s
+            rating.append((film, rating_index))
+            
+        #  we need to sort a rating list to find out the film id with the highest rating_index
+        rating.sort(key = lambda x: x[1], reverse = True)  
+        
+        return self.film_list[rating[0][0]]   # we make a recommendation
+        
+            
+    #  let us check it
+similarity = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,1],[0,0,1,1]])
+films_list = np.array(['drama007', 'horror23', 'comedy11', 'comedy22'])
+user_friends = {'Anya': [3], 'Vasya': [1, 2, 0],'Walt':[0, 2, 3]}
+
+data = Movie(similarity, films_list, user_friends)
+data.make_rating()
