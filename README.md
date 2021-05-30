@@ -1,6 +1,6 @@
 Hello! Welcome to my Github!
 My name is Liubov Sharaborina.
-There're some little projects.
+There're some of my projects.
 
 1. Film recommendation  system (graphs in Python)
 2. Game 
